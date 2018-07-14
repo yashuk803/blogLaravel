@@ -27,10 +27,12 @@
                     url: url,
                     data: {message:mess, text:text, email:email,"_token":"{{ csrf_token() }}"},
                     success: function(data){
-                        $("form").append('<p>'+data.status+'</p>');
-                        $("form").append('<p>'+data.email+'</p>');
-                        $("form").append('<p>'+data.text+'</p>');
-                        $("form").append('<p>'+data.mess+'</p>');
+                        var html;
+                        html = '<div class="alert alert-danger">'+ data.message + '</div>'
+                        if(data.status==1){
+                            html = '<div class="alert alert-success">'+ data.message + '</div>';
+                        }
+                        $("form").append(html);
                         console.log(data);
                     }
                 });

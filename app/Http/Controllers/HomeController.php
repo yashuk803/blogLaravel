@@ -123,22 +123,26 @@ class HomeController extends Controller
         $message = $request->get('message');
         $text = $request->get('text');
         $email = $request->get('email');
-        $status = 0;
-        $result =
-            \Mail::send('email',
-            ['msg' =>$text],
-            function ($message) use ($text) {
-                $message->form('')
-                    ->to('')
-                    ->subject($text);
-            });
+//        $result =
+//            \Mail::send('email',
+//            ['msg' =>$message],
+//            function ($message) use ($text) {
+//                $message->from('yashuk803@gmail.com')
+//                    ->to('yashuk803@gmail.com')
+//                    ->subject($text);
+//            });
+        $result = rand(0,1);
         $data = [];
+        $status = 0;
+        $message = 'Ошибка отправки Email!';
+        if($result) {
+            $status = 1;
+            $message = 'Email успешно отправлен!';
+        }
 
         return response()->json([
-            'mess'=>$message,
-            'text'=>$text,
-            'email'=>$email,
             'status'=>$status,
+            'message'=>$message
         ]);
     }
 
